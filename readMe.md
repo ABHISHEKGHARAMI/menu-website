@@ -1,0 +1,1 @@
+This is the guidance for the site for future reference for how i built the site for my reference for the user.
