@@ -13,3 +13,15 @@ def list_article(request):
             'articles' : articles
         }
     )
+    
+    
+#  view for the detail view for the user
+def detail_view(request,pk):
+    article = Article.objects.get(id=pk)
+    return render(
+        request,
+        'detail.html',
+        {
+            'article':article
+        }
+    )
