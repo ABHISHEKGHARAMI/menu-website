@@ -7,9 +7,13 @@ search
 
 {% block content %}
   <h1>Related article about the search</h1>
-  {% for article in object %}
-     <ul>
-        <li><a href="{% url 'articles:detail' article.id %}">{{ article.title }}</a></li>
-     </ul>
-  {% endfor %}
+  {% if object %}
+     {% for article in object %}
+        <ul>
+            <li><a href="{% url 'articles:detail' article.id %}">{{ article.title }}</a></li>
+        </ul>
+     {% endfor %}
+  {% else %}
+    <p>No related data found</p>
+  {% endif %}
 {% endblock content %}
