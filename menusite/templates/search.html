@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+search
+{% endblock title %}
+
+
+{% block content %}
+  <h1>Related article about the search</h1>
+  {% for article in object %}
+     <ul>
+        <li><a href="{% url 'articles:detail' article.id %}">{{ article.title }}</a></li>
+     </ul>
+  {% endfor %}
+{% endblock content %}
