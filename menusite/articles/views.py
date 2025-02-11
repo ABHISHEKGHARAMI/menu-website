@@ -32,8 +32,8 @@ def article_search_view(request):
     article_object = None
     context = {}
     if request.GET:
-        query = request.GET('q')
-        article_object = Article.objects.get(id=query)
+        query = request.GET.get('q')
+        article_object = Article.objects.filter(id=query)
         if article_object is not None:
             context = {
                 'object': article_object
