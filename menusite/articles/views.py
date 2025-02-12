@@ -44,3 +44,14 @@ def article_search_view(request):
         'search.html',
         context=context
     )
+    
+
+
+# views for the creating the article
+def article_create(request):
+    if request.method == 'POST':
+        title = re
+    context = {}
+    return render(request,
+                  'create.html',
+                  context)
