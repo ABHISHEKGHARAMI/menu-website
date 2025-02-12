@@ -26,3 +26,14 @@ def login_view(request):
                        {
                         
                        })
+    
+    
+    
+
+#  user logout view for the user
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        
+    return render(request,
+                  'accounts/logout.html',{})

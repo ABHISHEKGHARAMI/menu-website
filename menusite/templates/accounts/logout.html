@@ -9,6 +9,7 @@
   {% if request.user.is_authenticated %}
       <div style="margin-top:30px">
          <form method="POST">
+            {% csrf_token %}
              <div>
                 <p>Are you sure want to logout!!</p>
                 <input type="submit" value="Yes">
