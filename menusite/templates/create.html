@@ -29,7 +29,11 @@
 
      {% else %}
      <p>New Article has been created.</p>
-     <a href="{% url 'articles:detail' object.id %}">You can go here to read the article.</a>
+     <p>
+        <a href="{% url 'articles:detail' object.id %}">You can go here to read the article.</a>
+        or
+        <a href="{% url 'articles:list_article'%}">read all the articles here.</a>
+     </p>
     {% endif %}
    </div>
 {% endblock content %}
