@@ -49,9 +49,15 @@ def article_search_view(request):
 
 # views for the creating the article
 def article_create(request):
-    if request.method == 'POST':
-        title = re
     context = {}
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        if title and content is  not None:
+            article_obj = Article.objects.create(title=title,content=content)
+            context['object'] = article_obj
+            context['created'] = True
+    
     return render(request,
                   'create.html',
                   context)

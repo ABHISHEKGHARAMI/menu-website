@@ -9,6 +9,9 @@
 
 {% block content %}
    <div style="margin-top:30px">
+     {% if not created %}
+    
+    
      <form action="{% url 'articles:create' %}" method="POST">
         {% csrf_token %}
         <div>
@@ -23,5 +26,10 @@
             <input type="submit" value="submit">
         </div>
      </form>
+
+     {% else %}
+     <p>New Article has been created.</p>
+     <a href="{% url 'articles:detail' object.id %}">You can go here to read the article.</a>
+    {% endif %}
    </div>
 {% endblock content %}
