@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Logout
+{% endblock title %}  
+
+
+{% block content %}
+  {% if request.user.is_authenticated %}
+      <div style="margin-top:30px">
+         <form method="POST">
+             <div>
+                <p>Are you sure want to logout!!</p>
+                <input type="submit" value="Yes">
+             </div>
+         </form>
+      </div>
+  {% else %}
+     <p>You are not logged in want to <a href="{% url 'accounts:login' %}">login</a>?</p>
+  {% endif %}
+{% endblock content %}

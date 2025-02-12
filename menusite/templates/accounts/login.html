@@ -29,6 +29,6 @@
    </div>
 
   {% else %}
-  <p>hey you are already logged in are you want to logged out.</p>
+  <p>hey you are already logged in are you want to <a href="{% url 'accounts:logout' %}">logged</a> out.</p>
   {% endif %}
 {% endblock content %}
