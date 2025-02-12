@@ -7,6 +7,8 @@
 
 
 {% block content %}
+  {% if not request.user.is_authenticated %}
+
    <div style="margin-top:30px">
      <form method="POST">
         {% csrf_token %}
@@ -25,4 +27,8 @@
         </div>
      </form>
    </div>
+
+  {% else %}
+  <p>hey you are already logged in are you want to logged out.</p>
+  {% endif %}
 {% endblock content %}
