@@ -31,4 +31,11 @@ class ArticleForm(forms.ModelForm):
         
         
     # for cleaning  the data
-    
+    def clean(self):
+        data = self.cleaned_data
+        title = data.get('title')
+        content = data.get('content')
+        qs = Article.objects.filter(Q(title__icontains=title) or Q(content__icontains=content))
+        if qs.exists():
+            self.add_error("title or contents",f"{title} or{content} are already taken")
+        return data

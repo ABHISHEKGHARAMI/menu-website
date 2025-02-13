@@ -51,7 +51,7 @@ def article_search_view(request):
 # views for the creating the article
 @login_required
 def article_create(request):
-    form = ArticleForm()
+    form = ArticleForm(request.POST or None)
     context = {
         'form':form
     }
