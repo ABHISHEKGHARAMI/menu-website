@@ -58,12 +58,13 @@ def article_create(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
-            title = form.cleaned_data.get('title')
-            content = form.cleaned_data.get('content')
-            if title and content is  not None:
-                article_obj = Article.objects.create(title=title,content=content)
-                context['object'] = article_obj
-                context['created'] = True
+            # title = form.cleaned_data.get('title')
+            # content = form.cleaned_data.get('content')
+            # if title and content is  not None:
+            #     article_obj = Article.objects.create(title=title,content=content)
+            article_obj = form.save()
+            context['object'] = article_obj
+            context['created'] = True
     
     return render(request,
                   'create.html',
