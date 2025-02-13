@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Article
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # first view for the list of all article
@@ -48,6 +48,7 @@ def article_search_view(request):
 
 
 # views for the creating the article
+@login_required
 def article_create(request):
     context = {}
     if request.method == 'POST':
