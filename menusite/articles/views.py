@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Article
 from django.contrib.auth.decorators import login_required
-from .forms import ArticleForm
+from .forms import ArticleForm , UserCreateForm
 # Create your views here.
 
 # first view for the list of all article
@@ -12,6 +12,24 @@ def list_article(request):
         'list.html',
         {
             'articles' : articles
+        }
+    )
+    
+    
+
+
+#  register user to the site
+def register_view(request):
+    form = UserCreateForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.save()
+        return redirect('accounts:login')
+    
+    return render(
+        request,
+        'register.html',
+        {
+            'form':form
         }
     )
     
