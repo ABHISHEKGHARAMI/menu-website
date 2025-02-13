@@ -35,7 +35,8 @@ class ArticleForm(forms.ModelForm):
         data = self.cleaned_data
         title = data.get('title')
         content = data.get('content')
-        qs = Article.objects.filter(Q(title__icontains=title) or Q(content__icontains=content))
-        if qs.exists():
-            self.add_error("title or contents",f"{title} or{content} are already taken")
+        if title :
+            qs = Article.objects.filter(title__iexact=title)
+            if qs.exists():
+                self.add_error("title",f"{title} is already taken")
         return data
