@@ -30,5 +30,6 @@
 
   {% else %}
   <p>hey you are already logged in are you want to <a href="{% url 'accounts:logout' %}">logged</a> out.</p>
+  <p>If are new user then <a href="{% url 'accounts:register' %}">register</a>here</p>
   {% endif %}
 {% endblock content %}
