@@ -1,7 +1,24 @@
 from django.shortcuts import render , redirect
 from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
+
+
+
+# user registration form
+def register_view(request):
+    form = UserCreationForm(request.POST or None)
+    if form.is_valid():
+        user_obj = form.save()
+        return redirect('accounts:login')
+    return render(
+        request,
+        'accounts/register.html',
+        {
+            'form':form
+        }
+    )
 
 
 #  user login view

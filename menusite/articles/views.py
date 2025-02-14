@@ -16,23 +16,6 @@ def list_article(request):
     )
     
     
-
-
-#  register user to the site
-def register_view(request):
-    form = UserCreateForm(request.POST or None)
-    if form.is_valid():
-        user_obj = form.save()
-        return redirect('accounts:login')
-    
-    return render(
-        request,
-        'register.html',
-        {
-            'form':form
-        }
-    )
-    
     
 #  view for the detail view for the user
 def detail_view(request,pk):
