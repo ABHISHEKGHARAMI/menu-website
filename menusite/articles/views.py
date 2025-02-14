@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect
 from .models import Article
 from django.contrib.auth.decorators import login_required
-from .forms import ArticleForm , UserCreateForm
+from .forms import ArticleForm 
 # Create your views here.
 
 # first view for the list of all article
