@@ -4,6 +4,6 @@ from .models import Article
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id','title']
+    list_display = ['id','title','timestamp','updated']
     list_filter = ['title','id']
     search_fields = ['title']
