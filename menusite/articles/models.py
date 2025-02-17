@@ -8,7 +8,7 @@ from django.db.models.signals import pre_save,post_save
 class Article(models.Model):
     # two field right now
     title = models.CharField(max_length=250)
-    slug = models.SlugField(blank=True,null=True)
+    slug = models.SlugField(unique=True,blank=True,null=True)
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
