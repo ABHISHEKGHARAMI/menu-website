@@ -15,4 +15,10 @@ class ArticleTest(TestCase):
         except e:
             msg = f"Bad Secret key : {e}"
             self.fail(e)
+            
+            
+    #  test case for the database data exist or not
+    def test_queryset_exist(self):
+        qs = Article.objects.all()
+        self.assertTrue(qs.exists())
          
