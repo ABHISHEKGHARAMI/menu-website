@@ -1,6 +1,6 @@
 from django.db import models
-from django.utils.text import slugify
 from django.db.models.signals import pre_save,post_save
+from .utils import slugify_instance_title
 
 # Create your models here.
 
@@ -25,18 +25,7 @@ class Article(models.Model):
         return self.title
  
  
-# function for the article 
-def slugify_instance_title(instance,save=False):
-    slug = slugify(instance.title)   
-    qs = Article.objects.filter(slug=slug).exclude(id=instance.id)
-    if qs.exists():
-        slug = f"{slug}-{qs.count() + 2}"
-    instance.slug = slug
-    if save:
-        instance.save()
-    
-    return instance
-        
+
         
 # callback function for the signal
 def article_pre_save(sender,instance,*args,**kwargs):
