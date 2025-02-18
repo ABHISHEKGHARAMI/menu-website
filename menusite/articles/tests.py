@@ -19,9 +19,7 @@ class ArticleTest(TestCase):
             
     #  setting up the test database
     def setUp(self):
-        Article.objects.create(title='test Article',
-                               content='testing data!!')
-            
+        Article.objects.create(title='hello',content='testing')
             
     #  test case for the database data exist or not
     def test_queryset_exist(self):
