@@ -42,3 +42,13 @@ class ArticleTest(TestCase):
         slug = obj.slug
         slugified_title = slugify(title)
         self.assertEqual(slug,slugified_title)
+        
+        
+    # test case for the queryset slug
+    def test_not_slug_qs(self):
+        qs = Article.objects.exclude(slug__iexact='testing')
+        for obj in qs:
+            title = obj.title
+            slug = obj.slug
+            slugified_title = slugify(title)
+            self.assertNotEqual(slug,slugified_title)
