@@ -28,6 +28,9 @@ class Article(models.Model):
 # function for the article 
 def slugify_instance_title(instance,save=False):
     slug = slugify(instance.title)   
+    qs = Article.objects.filter(slug=slug).exclude(id=instance.id)
+    if qs.exists():
+        slug = f"{slug}-{qs.count() + 2}"
     instance.slug = slug
     if save:
         instance.save()
