@@ -23,19 +23,33 @@ class Article(models.Model):
     
     def __str__(self):
         return self.title
+ 
+ 
+# function for the article 
+def slugify_instance_title(instance,save=False):
+    slug = slugify(instance.title)   
+    instance.slug = slug
+    if save:
+        instance.save()
     
-    
+    return instance
+        
+        
 # callback function for the signal
 def article_pre_save(sender,instance,*args,**kwargs):
-    # if instance.slug is None:
-    instance.slug = slugify(instance.title)
+    if instance.slug is None:
+        instance.slug = slugify_instance_title(instance,save=False)
+        
+        
+        
 # connecting the article to sender
 pre_save.connect(article_pre_save,sender=Article)
 
 # call back function for post save
 def article_post_save(sender,instance,created,*args,**kwargs):
     if created:
-        instance.slug = 'default slug!!!'
+        # instance.slug = 'default slug!!!'
+        slugify_instance_title(instance,save=True)
         instance.save()
 
 post_save.connect(article_post_save,sender=Article)
