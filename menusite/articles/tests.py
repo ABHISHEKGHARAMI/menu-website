@@ -27,4 +27,9 @@ class ArticleTest(TestCase):
     def test_queryset_exist(self):
         qs = Article.objects.all()
         self.assertTrue(qs.exists())
+        
+    # test case for the database count
+    def test_queryset_count(self):
+        qs = Article.objects.all()
+        self.assertEqual(qs.count(),1)
          
