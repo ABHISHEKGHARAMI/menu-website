@@ -7,3 +7,4 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['id','title','slug','timestamp','updated','publish']
     list_filter = ['title','id']
     search_fields = ['title']
+    prepopulated_fields = {'slug' : ('title',)}
