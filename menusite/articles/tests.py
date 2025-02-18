@@ -19,7 +19,9 @@ class ArticleTest(TestCase):
             
     #  setting up the test database
     def setUp(self):
-        Article.objects.create(title='hello',content='testing')
+        self.number_of_article = 5
+        for i in range(0,self.number_of_article):
+            Article.objects.create(title='testing',content='testing slugify content!!')
             
     #  test case for the database data exist or not
     def test_queryset_exist(self):
@@ -29,5 +31,5 @@ class ArticleTest(TestCase):
     # test case for the database count
     def test_queryset_count(self):
         qs = Article.objects.all()
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),self.number_of_article)
          

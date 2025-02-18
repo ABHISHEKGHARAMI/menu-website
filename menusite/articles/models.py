@@ -30,7 +30,7 @@ class Article(models.Model):
 # callback function for the signal
 def article_pre_save(sender,instance,*args,**kwargs):
     if instance.slug is None:
-        instance.slug = slugify_instance_title(instance,save=False)
+        slugify_instance_title(instance,save=False)
         
         
         
@@ -42,7 +42,7 @@ def article_post_save(sender,instance,created,*args,**kwargs):
     if created:
         # instance.slug = 'default slug!!!'
         slugify_instance_title(instance,save=True)
-        instance.save()
+        # instance.save()
 
 post_save.connect(article_post_save,sender=Article)
     
