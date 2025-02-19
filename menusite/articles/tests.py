@@ -20,7 +20,7 @@ class ArticleTest(TestCase):
             
     #  setting up the test database
     def setUp(self):
-        self.number_of_article = 5
+        self.number_of_article = 500
         for i in range(0,self.number_of_article):
             Article.objects.create(title='testing',content='testing slugify content!!')
             
@@ -58,10 +58,19 @@ class ArticleTest(TestCase):
     def test_slugify_instance_title(self):
         obj = Article.objects.all().last()
         new_slug = []
-        for i in range(0,5):
+        for i in range(0,25):
             instance = slugify_instance_title(obj,save=False)
             new_slug.append(instance.slug)
         
         
         unique_slug = list(set(new_slug))
         self.assertEqual(len(unique_slug),len(new_slug))
+        
+        
+    # test with the list object
+
+    def test_slugify_instance_title_redux(self):
+        slug_list = Article.objects.all().values_list('slug',flat=True)
+        unique_slug = list(set(slug_list))
+        self.assertEqual(len(slug_list),len(unique_slug))
+        
