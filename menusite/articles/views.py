@@ -49,7 +49,7 @@ def article_search_view(request):
             article_object = Article.objects.all()
         else:
             # lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(content__icontains=query)
-            article_object = Article.objects.search(query)
+            article_object = Article.objects.search(query=query)
         if article_object is not None:
             context = {
                 'object': article_object

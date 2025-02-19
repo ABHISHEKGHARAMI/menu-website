@@ -9,9 +9,11 @@ from django.db.models import Q
 
 # creating the model manager
 class ArticleManager(models.Manager):
-    def search(self,query):
+    def search(self,query=None):
+        if query is None or query is "":
+            return self.get_queryset().none()
         lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(content__icontains=query)
-        return Article.objects.filter(lookups)
+        return self.get_queryset().filter(lookups)
 
 # article model
 class Article(models.Model):
