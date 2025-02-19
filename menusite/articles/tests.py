@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.password_validation import validate_password
 from .models import Article
 from django.utils.text import slugify
+from .utils import slugify_instance_title
 # Create your tests here.
 
 
@@ -51,3 +52,16 @@ class ArticleTest(TestCase):
             slug = obj.slug
             slugified_title = slugify(title)
             self.assertNotEqual(slug,slugified_title)
+            
+            
+    # test case for the unique slug length
+    def test_slugify_instance_title(self):
+        obj = Article.objects.all().last()
+        new_slug = []
+        for i in range(0,5):
+            instance = slugify_instance_title(obj,save=False)
+            new_slug.append(instance.slug)
+        
+        
+        unique_slug = list(set(new_slug))
+        self.assertEqual(len(unique_slug),len(new_slug))
