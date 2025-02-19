@@ -3,6 +3,7 @@ from django.db.models.signals import pre_save,post_save
 from .utils import slugify_instance_title
 from django.urls import reverse
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -18,6 +19,7 @@ class ArticleManager(models.Manager):
 # article model
 class Article(models.Model):
     # two field right now
+    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True,blank=True,null=True)
     content = models.TextField()
