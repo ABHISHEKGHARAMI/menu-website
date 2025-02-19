@@ -74,3 +74,12 @@ class ArticleTest(TestCase):
         unique_slug = list(set(slug_list))
         self.assertEqual(len(slug_list),len(unique_slug))
         
+        
+    # test the search query set
+    def test_search_query(self):
+        qs = Article.objects.search(query='testing')
+        self.assertEqual(qs.count(),self.number_of_article)
+        
+        qs = Article.objects.search(query='testing')
+        self.assertEqual(qs.count(),self.number_of_article)
+        
