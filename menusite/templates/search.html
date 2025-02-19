@@ -10,7 +10,7 @@ search
   {% if object %}
      {% for article in object %}
         <ul>
-            <li><a href="{% url 'articles:detail' article.id %}">{{ article.title }}</a></li>
+            <li><a href="{% url 'articles:detail' article.slug %}">{{ article.title }}</a></li>
         </ul>
      {% endfor %}
   {% else %}
