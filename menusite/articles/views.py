@@ -3,6 +3,7 @@ from .models import Article
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm 
 from django.http import Http404
+from django.db.models import Q
 # Create your views here.
 
 # first view for the list of all article
@@ -44,7 +45,10 @@ def article_search_view(request):
     context = {}
     if request.GET:
         query = request.GET.get('q')
-        article_object = Article.objects.filter(id=query)
+        if query is None:
+            article_object = Article.objects.all()
+        else:
+            article_object = Article.objects.filter(Q(title__icontains=query) | Q(slug__icontains=query))
         if article_object is not None:
             context = {
                 'object': article_object
