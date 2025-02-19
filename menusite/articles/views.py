@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from .models import Article
 from django.contrib.auth.decorators import login_required
 from .forms import ArticleForm 
+from django.http import Http404
 # Create your views here.
 
 # first view for the list of all article
@@ -18,13 +19,18 @@ def list_article(request):
     
     
 #  view for the detail view for the user
-def detail_view(request,pk):
-    article = Article.objects.get(id=pk)
+def detail_view(request,slug=None):
+    article_obj = None
+    if slug is not None:
+        try:
+            article_obj = Article.objects.get(slug=slug)
+        except:
+            raise Http404
     return render(
         request,
         'detail.html',
         {
-            'article':article
+            'article':article_obj
         }
     )
     

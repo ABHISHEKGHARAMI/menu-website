@@ -9,6 +9,6 @@ urlpatterns = [
     path('',views.list_article,name='list_article'),
     path('article/search/', views.article_search_view, name='search'),
     path('article/create/',views.article_create,name='create'),
-    path('articles/detail/<int:pk>/',views.detail_view,name='detail'),
+    path('articles/detail/<slug:slug>/',views.detail_view,name='detail'),
 ]
 
