@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save,post_save
 from .utils import slugify_instance_title
 from django.urls import reverse
 from django.db.models import Q
-from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 # creating the model manager
 class ArticleManager(models.Manager):
     def search(self,query=None):
-        if query is None or query is "":
+        if query == None or query == "":
             return self.get_queryset().none()
         lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(content__icontains=query)
         return self.get_queryset().filter(lookups)
@@ -19,7 +19,7 @@ class ArticleManager(models.Manager):
 # article model
 class Article(models.Model):
     # two field right now
-    user = models.ForeignKey(User,blank=True,null=True,on_delete=models.SET_NULL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,blank=True,null=True,on_delete=models.SET_NULL)
     title = models.CharField(max_length=250)
     slug = models.SlugField(unique=True,blank=True,null=True)
     content = models.TextField()
