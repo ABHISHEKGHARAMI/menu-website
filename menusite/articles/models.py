@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save,post_save
 from .utils import slugify_instance_title
+from django.urls import reverse
 
 # Create your models here.
 
@@ -13,6 +14,12 @@ class Article(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateField(auto_now_add=False,auto_now=False,null=True,blank=True)
+    
+    
+    # creating the absolute view for the article
+    def get_absolute_url(self):
+        return reverse("articles:detail", kwargs={"slug":self.slug})
+    
     
     
     # save the slug method
