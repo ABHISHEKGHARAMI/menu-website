@@ -2,8 +2,16 @@ from django.db import models
 from django.db.models.signals import pre_save,post_save
 from .utils import slugify_instance_title
 from django.urls import reverse
+from django.db.models import Q
 
 # Create your models here.
+
+
+# creating the model manager
+class ArticleManager(models.Manager):
+    def search(self,query):
+        lookups = Q(title__icontains=query) | Q(slug__icontains=query) | Q(content__icontains=query)
+        return Article.objects.filter(lookups)
 
 # article model
 class Article(models.Model):
@@ -14,6 +22,9 @@ class Article(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     publish = models.DateField(auto_now_add=False,auto_now=False,null=True,blank=True)
+    
+    # stream lining the query
+    objects = ArticleManager()
     
     
     # creating the absolute view for the article
