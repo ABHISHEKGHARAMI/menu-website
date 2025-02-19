@@ -24,6 +24,9 @@ def detail_view(request,slug=None):
     if slug is not None:
         try:
             article_obj = Article.objects.get(slug=slug)
+        except Article.DoNotExist:
+            raise Http404
+            
         except:
             raise Http404
     return render(
