@@ -3,7 +3,7 @@ from django.conf import settings
 # Create your models here.
 
 # receipi website for the model
-class UserReceipi(models.Model):
+class Receipi(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
     # like grilled chicken pasta
@@ -15,8 +15,8 @@ class UserReceipi(models.Model):
     
     
 # ingredients for receipi 
-class UserReceipiIngredient(models.Model):
-    receipi = models.ForeignKey(UserReceipi,on_delete=models.CASCADE)
+class ReceipiIngredient(models.Model):
+    receipi = models.ForeignKey(Receipi,on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
     description = models.TextField(null=True,blank=True)
     quantity = models.CharField(max_length=50)
