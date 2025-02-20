@@ -9,7 +9,7 @@ class ReceipiAdmin(admin.ModelAdmin):
     search_fields = ['name','timestamp','updated']
     
     
-@admin.register(ReceipiAdmin)
+@admin.register(ReceipiIngredient)
 class ReceipiIngredientAdmin(admin.ModelAdmin):
     list_display = ['receipi','name','description','quantity','unit','direction','timestamp','updated','active']
     list_filter = ['name','updated']
