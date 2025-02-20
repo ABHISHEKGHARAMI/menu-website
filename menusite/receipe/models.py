@@ -16,7 +16,7 @@ class UserReceipi(models.Model):
     
 # ingredients for receipi 
 class UserReceipiIngredient(models.Model):
-    receipi = models.ForeignKey(Receipi,on_delete=True)
+    receipi = models.ForeignKey(UserReceipi,on_delete=models.CASCADE)
     name = models.CharField(max_length=220)
     description = models.TextField(null=True,blank=True)
     quantity = models.CharField(max_length=50)
