@@ -25,6 +25,10 @@ class UserTest(TestCase):
 class ReceipeTestCase(TestCase):
     def setUp(self):
         self.user_a = User.objects.create_user('test',password='abc123@')
+        self.receipi_a = Receipi.objects.create(
+            name = 'Chicken tandoor',
+            user = self.user_a
+        )
         
     # first case for the test count
     def test_user_count(self):
@@ -33,9 +37,15 @@ class ReceipeTestCase(TestCase):
         
         
     #  second case for the test count for the setting receipe
-    def test_receipi_count(self):
+    def test_receipi_reverse_count(self):
         user = self.user_a
         qs = user.receipi_set.all()
-        self.assertEqual(qs.count(),0)
+        self.assertEqual(qs.count(),1)
+    
+    # 3rd case for the test forward count for the receipe
+    def test_receipe_forward_count(self):
+        user = self.user_a
+        qs = Receipi.objects.filter(user=user)
+        self.assertEqual(qs.count(),1)
         
         
