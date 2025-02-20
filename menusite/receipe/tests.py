@@ -80,8 +80,9 @@ class ReceipeTestCase(TestCase):
     # 7 th test case for user to show the reverse relation
     def test_user_to_recceipi_reverse_count(self):
         user = self.user_a
-        receipi_ingridient_ids = user.receipi_set.all().values_list('receipiingredient',flat=True)
-        self.assertEqual(receipi_ingridient_ids.count(),2)
+        receipi_ingridient_ids = list(user.receipi_set.all().values_list('receipiingredient',flat=True))
+        qs = ReceipiIngredient.objects.filter(id__in=receipi_ingridient_ids)
+        self.assertEqual(qs.count(),1)
         
         
     
