@@ -2,8 +2,12 @@ from django.contrib import admin
 from .models import Receipi, ReceipiIngredient
 # Register your models here.
 
-class ReceipiIngredientInline(admin.TabularInline):
+
+admin.site.register(ReceipiIngredient)
+class ReceipiIngredientInline(admin.StackedInline):
     model = ReceipiIngredient
+    # fields = ['name','quantity','unit','direction']
+    extra = 0
     
 
 
