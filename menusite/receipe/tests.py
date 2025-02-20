@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from .models import Receipi , ReceipiIngredient
+from django.core.exceptions import ValidationError
 # Create your tests here.
 
 
@@ -83,6 +84,35 @@ class ReceipeTestCase(TestCase):
         receipi_ingridient_ids = list(user.receipi_set.all().values_list('receipiingredient',flat=True))
         qs = ReceipiIngredient.objects.filter(id__in=receipi_ingridient_ids)
         self.assertEqual(qs.count(),1)
+        
+    # test case for the clean validation for the unit
+
+    def test_case_for_validation(self):
+        valid_unit = 'gram'
+        ingredient = ReceipiIngredient(
+            name='New',
+            receipi=self.receipi_a,
+            quantity=10,
+            unit = valid_unit
+        )
+        ingredient.full_clean()
+
+        
+    #  test case for validation for unit
+    def test_case_for_validation_error(self):
+        invalid_unit = 'nda'
+        with self.assertRaises(ValidationError):
+            ingredient = ReceipiIngredient(
+                name='New',
+                receipi = self.receipi_a,
+                quantity = 10,
+                unit = invalid_unit
+            )
+            ingredient.full_clean()
+            
+            
+    
+        
         
         
     
