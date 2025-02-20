@@ -70,6 +70,20 @@ class ReceipeTestCase(TestCase):
         qs = ReceipiIngredient.objects.filter(receipi=receipi)
         self.assertEqual(qs.count(),1)
         
+    # 6 th test case for user to receipi count
+    def test_user_to_receipi_count(self):
+        user = self.user_a
+        qs = ReceipiIngredient.objects.filter(receipi__user=user)
+        self.assertEqual(qs.count(),1)
+        
+        
+    # 7 th test case for user to show the reverse relation
+    def test_user_to_recceipi_reverse_count(self):
+        user = self.user_a
+        receipi_ingridient_ids = user.receipi_set.all().values_list('receipiingredient',flat=True)
+        self.assertEqual(receipi_ingridient_ids.count(),2)
+        
+        
     
         
         
