@@ -29,6 +29,16 @@ class ReceipeTestCase(TestCase):
             name = 'Chicken tandoor',
             user = self.user_a
         )
+        self.receipi_b = Receipi.objects.create(
+            name = 'Chicken gravy',
+            user = self.user_a
+        )
+        self.receipi_ingredient_a = ReceipiIngredient.objects.create(
+            receipi = self.receipi_a,
+            name = 'Chicken',
+            quantity = '1/2',
+            unit = 'kg'
+        )
         
     # first case for the test count
     def test_user_count(self):
@@ -40,12 +50,26 @@ class ReceipeTestCase(TestCase):
     def test_receipi_reverse_count(self):
         user = self.user_a
         qs = user.receipi_set.all()
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
     
     # 3rd case for the test forward count for the receipe
     def test_receipe_forward_count(self):
         user = self.user_a
         qs = Receipi.objects.filter(user=user)
+        self.assertEqual(qs.count(),2)
+        
+    # 4th case for the reverse test receipi ingridient
+    def test_receipi_ingridient_reverse_count(self):
+        receipe = self.receipi_a
+        qs = receipe.receipiingredient_set.all()
         self.assertEqual(qs.count(),1)
+        
+    # 5th test case for the forward test for the receipi ingredent
+    def test_receipi_ingridient_count(self):
+        receipi = self.receipi_a
+        qs = ReceipiIngredient.objects.filter(receipi=receipi)
+        self.assertEqual(qs.count(),1)
+        
+    
         
         
