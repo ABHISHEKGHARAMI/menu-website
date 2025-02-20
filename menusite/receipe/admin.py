@@ -2,15 +2,18 @@ from django.contrib import admin
 from .models import Receipi, ReceipiIngredient
 # Register your models here.
 
-@admin.register(Receipi)
+class ReceipiIngredientInline(admin.TabularInline):
+    model = ReceipiIngredient
+    
+
+
+# for the receipi site
 class ReceipiAdmin(admin.ModelAdmin):
-    list_display = ['user','name','description','directions','timestamp','updated','active']
-    list_filter = ['name','updated']
-    search_fields = ['name','timestamp','updated']
+    inlines = [ReceipiIngredientInline]
+    list_display = ['user','name']
+    readonly_fields = ['timestamp','updated']
+    raw_id_fields = ['user']
     
+
+admin.site.register(Receipi,ReceipiAdmin)
     
-@admin.register(ReceipiIngredient)
-class ReceipiIngredientAdmin(admin.ModelAdmin):
-    list_display = ['receipi','name','description','quantity','unit','direction','timestamp','updated','active']
-    list_filter = ['name','updated']
-    search_fields = ['name','timestamp','active']
