@@ -21,6 +21,7 @@ class ReceipiIngredient(models.Model):
     name = models.CharField(max_length=220)
     description = models.TextField(null=True,blank=True)
     quantity = models.CharField(max_length=50)
+    quantity_as_float = models.FloatField(blank=True,null=True)
     unit = models.CharField(max_length=50,validators=[validate_unit_measure])
     direction = models.TextField(null=True,blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
