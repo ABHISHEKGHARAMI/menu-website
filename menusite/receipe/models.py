@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from .validator import validate_unit_measure
+from .utils import number_str_to_float
 # Create your models here.
 
 # receipi website for the model
@@ -27,4 +28,14 @@ class ReceipiIngredient(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
+    
+    
+    
+    # overriding the save method for the changing the quantity to str to float
+    def save(self,*args,**kwargs):
+        qty = self.quantity
+        quantity_as_float, quantity_as_float_stat = number_str_to_float(qty)
+        if quantity_as_float_stat == True:
+            self.quantity_as_float = quantity_as_float
+        super().save(*args,**kwargs)
     
