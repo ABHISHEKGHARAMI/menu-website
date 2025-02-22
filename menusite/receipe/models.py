@@ -37,5 +37,7 @@ class ReceipiIngredient(models.Model):
         quantity_as_float, quantity_as_float_stat = number_str_to_float(qty)
         if quantity_as_float_stat == True:
             self.quantity_as_float = quantity_as_float
+        else:
+            self.quantity_as_float = None
         super().save(*args,**kwargs)
     
