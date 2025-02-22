@@ -40,6 +40,12 @@ class ReceipeTestCase(TestCase):
             quantity = '1/2',
             unit = 'kg'
         )
+        self.receipi_ingredient_b = ReceipiIngredient.objects.create(
+            receipi = self.receipi_a,
+            name = 'Chicken',
+            quantity = 'aassdef',
+            unit = 'kg'
+        )
         
     # first case for the test count
     def test_user_count(self):
@@ -63,19 +69,19 @@ class ReceipeTestCase(TestCase):
     def test_receipi_ingridient_reverse_count(self):
         receipe = self.receipi_a
         qs = receipe.receipiingredient_set.all()
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # 5th test case for the forward test for the receipi ingredent
     def test_receipi_ingridient_count(self):
         receipi = self.receipi_a
         qs = ReceipiIngredient.objects.filter(receipi=receipi)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # 6 th test case for user to receipi count
     def test_user_to_receipi_count(self):
         user = self.user_a
         qs = ReceipiIngredient.objects.filter(receipi__user=user)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
         
     # 7 th test case for user to show the reverse relation
@@ -83,7 +89,7 @@ class ReceipeTestCase(TestCase):
         user = self.user_a
         receipi_ingridient_ids = list(user.receipi_set.all().values_list('receipiingredient',flat=True))
         qs = ReceipiIngredient.objects.filter(id__in=receipi_ingridient_ids)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # test case for the clean validation for the unit
 
@@ -109,6 +115,11 @@ class ReceipeTestCase(TestCase):
                 unit = invalid_unit
             )
             ingredient.full_clean()
+            
+    # test case for the quantity as float for the data
+    def test_case_for_quantity_as_float(self):
+        self.assertIsNotNone(self.receipi_ingredient_a.quantity_as_float)
+        self.assertIsNone(self.receipi_ingredient_b.quantity_as_float)
             
             
     
