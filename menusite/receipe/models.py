@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from .validator import validate_unit_measure
 from .utils import number_str_to_float
+import pint
 # Create your models here.
 
 # receipi website for the model
@@ -29,6 +30,24 @@ class ReceipiIngredient(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     
+    
+    # solving the unit problem
+    def convert_to_system(self,system="mks"):
+        if self.quantity_as_float is None:
+            return None
+        ureg = pint.UnitRegistry(system = system)
+        measurement = self.quantity_as_float * ureg['unit']
+        return measurement
+    
+    # as meter , kilo and second
+    def as_mks(self):
+        measurement = self.convert_to_system(system="mks")
+        return measurement
+    
+    # as imperial mile , pound , second
+    def as_imperial(self):
+        measurement = self.convert_to_system(system="imperial")
+        return measurement
     
     
     # overriding the save method for the changing the quantity to str to float
