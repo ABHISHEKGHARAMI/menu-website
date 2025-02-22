@@ -7,7 +7,8 @@ admin.site.register(ReceipiIngredient)
 class ReceipiIngredientInline(admin.StackedInline):
     model = ReceipiIngredient
     # fields = ['name','quantity','unit','direction']
-    readonly_fields = ['quantity_as_float','as_mks','as_imperial']
+    readonly_fields = ['quantity_as_float',
+                       'as_mks', 'as_imperial', 'to_ounces']
     extra = 0
     
 

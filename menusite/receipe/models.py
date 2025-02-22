@@ -36,18 +36,24 @@ class ReceipiIngredient(models.Model):
         if self.quantity_as_float is None:
             return None
         ureg = pint.UnitRegistry(system = system)
-        measurement = self.quantity_as_float * ureg['unit']
+        measurement = self.quantity_as_float * ureg[self.unit]
         return measurement
+    
+    
+    # as ounces
+    def to_ounces(self):
+        m = self.convert_to_system()
+        return m.to('ounces')
     
     # as meter , kilo and second
     def as_mks(self):
         measurement = self.convert_to_system(system="mks")
-        return measurement
+        return measurement.to_base_units()
     
     # as imperial mile , pound , second
     def as_imperial(self):
         measurement = self.convert_to_system(system="imperial")
-        return measurement
+        return measurement.to_base_units()
     
     
     # overriding the save method for the changing the quantity to str to float
