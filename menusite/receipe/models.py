@@ -17,6 +17,11 @@ class Receipi(models.Model):
     active = models.BooleanField(default=True)
     
     
+    def get_absolute_url(self):
+        pass
+    
+    
+    
 # ingredients for receipi 
 class ReceipiIngredient(models.Model):
     receipi = models.ForeignKey(Receipi,on_delete=models.CASCADE)
@@ -30,6 +35,9 @@ class ReceipiIngredient(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     
+    def get_absolute_url(self):
+        return self.receipi.get_absolute_url()
+
     
     # solving the unit problem
     def convert_to_system(self,system="mks"):

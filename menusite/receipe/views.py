@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Receipi
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from .forms import ReceipiForm
 # Create your views here.
 
 
@@ -33,7 +34,20 @@ def receipi_detail_view(request,id=None):
 @login_required
 def receipi_create_view(request):
     form = ReceipiForm(request.POST or None)
-    return
+    context = {
+        'form' : form
+    }
+    if form.is_valid():
+        obj = form.save(commit=False)
+        obj.user = request.user
+        obj.save()
+        return redirect(obj.get_absolute_url())
+        
+    return render(
+        request,
+        'receipi/create.html',
+        context=context
+    )
 # receipi update view
 @login_required
 def receipi_update_view(request,id=None):
@@ -44,8 +58,13 @@ def receipi_update_view(request,id=None):
         'object': obj
     }
     
+    if form.is_valid():
+        form.save()
+        return redirect(obj.get_absolute_url())
+    
     return render(
         request,
         'receipi/update.html',
-        context=context
+        context = context
     )
+        
