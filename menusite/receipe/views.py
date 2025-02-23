@@ -51,8 +51,8 @@ def receipi_create_view(request):
 # receipi update view
 @login_required
 def receipi_update_view(request,id=None):
-    form = ReceipiForm(request.POST or None)
     obj = get_object_or_404(Receipi,id=id,user=request.user)
+    form = ReceipiForm(request.POST or None , instance = obj)
     context = {
         'form' : form,
         'object': obj
@@ -60,7 +60,7 @@ def receipi_update_view(request,id=None):
     
     if form.is_valid():
         form.save()
-        return redirect(obj.get_absolute_url())
+        context['message'] = 'data updated.'
     
     return render(
         request,
