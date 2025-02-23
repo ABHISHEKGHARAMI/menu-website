@@ -31,11 +31,21 @@ def receipi_detail_view(request,id=None):
 
 # receipe create view
 @login_required
-def receipi_create_view(request,id=None):
+def receipi_create_view(request):
     form = ReceipiForm(request.POST or None)
     return
 # receipi update view
 @login_required
-def receipi_update_view(request,id):
+def receipi_update_view(request,id=None):
     form = ReceipiForm(request.POST or None)
     obj = get_object_or_404(Receipi,id=id,user=request.user)
+    context = {
+        'form' : form,
+        'object': obj
+    }
+    
+    return render(
+        request,
+        'receipi/update.html',
+        context=context
+    )
