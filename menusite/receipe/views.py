@@ -45,7 +45,7 @@ def receipi_create_view(request):
         
     return render(
         request,
-        'receipi/create.html',
+        'receipi/create-update.html',
         context=context
     )
 # receipi update view
@@ -64,7 +64,7 @@ def receipi_update_view(request,id=None):
     
     return render(
         request,
-        'receipi/update.html',
+        'receipi/create-update.html',
         context = context
     )
         
