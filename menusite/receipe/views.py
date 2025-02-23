@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from .models import Receipi
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
-from .forms import ReceipiForm
+from .forms import ReceipiForm, ReceipiIngredientForm
 # Create your views here.
 
 
@@ -53,15 +53,17 @@ def receipi_create_view(request):
 def receipi_update_view(request,id=None):
     obj = get_object_or_404(Receipi,id=id,user=request.user)
     form = ReceipiForm(request.POST or None , instance = obj)
+    form_2 = ReceipiIngredientForm(request.POST or None)
     context = {
         'form' : form,
+        'form_2' : form_2 , 
         'object': obj
     }
     
-    if form.is_valid():
+    if all([form.is_valid(),form_2.is_valid()]):
         form.save()
         context['message'] = 'data updated.'
-    
+        return redirect('receipe:list')
     return render(
         request,
         'receipi/create-update.html',
