@@ -7,10 +7,10 @@
 
 {% block content %}
   <h1>Receipi list for the pantry-</h1>
-  <a href="{% url 'receipi:create' %}">Create a receipi</a>
+  <a href="{% url 'receipe:create' %}">Create a receipi</a>
   <ul>
     {% for object in object_list %}
-     <li>object</li>
+     <li>{{ object.name }}</li>
     {% endfor %}
   </ul>
 {% endblock content %}
