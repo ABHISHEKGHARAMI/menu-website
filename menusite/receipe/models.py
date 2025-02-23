@@ -26,6 +26,10 @@ class Receipi(models.Model):
     def get_edit_url(self):
         return reverse('receipe:edit',kwargs={'id':self.id})
     
+    # ingredient children
+    def get_ingredient_children(self):
+        return self.receipiingredient_set.all()
+    
     
     
 # ingredients for receipi 
