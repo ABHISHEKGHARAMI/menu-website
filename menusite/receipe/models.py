@@ -3,6 +3,7 @@ from django.conf import settings
 from .validator import validate_unit_measure
 from .utils import number_str_to_float
 import pint
+from django.urls import reverse
 # Create your models here.
 
 # receipi website for the model
@@ -18,7 +19,7 @@ class Receipi(models.Model):
     
     
     def get_absolute_url(self):
-        pass
+        return reverse('receipe:detail',kwargs={'id':self.id})
     
     
     
