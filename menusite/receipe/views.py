@@ -1,8 +1,9 @@
 from django.shortcuts import render , redirect
-from .models import Receipi
+from .models import Receipi, ReceipiIngredient
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from .forms import ReceipiForm, ReceipiIngredientForm
+from django.forms.models import modelformset_factory
 # Create your views here.
 
 
@@ -53,7 +54,10 @@ def receipi_create_view(request):
 def receipi_update_view(request,id=None):
     obj = get_object_or_404(Receipi,id=id,user=request.user)
     form = ReceipiForm(request.POST or None , instance = obj)
-    form_2 = ReceipiIngredientForm(request.POST or None)
+    # form_2 = ReceipiIngredientForm(request.POST or None)
+    qs = obj.receipiingridient_set.all()
+    ReceipiIngredientFormset = modelformset_factory(ReceipiIngredient,form=ReceipiIngredientForm, extra=0)
+    formset = ReceipiIngredientFormset(request.POST or None , queryset=qs)
     context = {
         'form' : form,
         'form_2' : form_2 , 
@@ -61,7 +65,11 @@ def receipi_update_view(request,id=None):
     }
     
     if all([form.is_valid(),form_2.is_valid()]):
-        form.save()
+        parent = form.save(commit=False)
+        parent.save()
+        child = form_2.save(commit=False)
+        child.receipe = parent
+        child.save()
         context['message'] = 'data updated.'
         return redirect('receipe:list')
     return render(
