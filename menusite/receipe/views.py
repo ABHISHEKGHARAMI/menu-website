@@ -55,23 +55,29 @@ def receipi_update_view(request,id=None):
     obj = get_object_or_404(Receipi,id=id,user=request.user)
     form = ReceipiForm(request.POST or None , instance = obj)
     # form_2 = ReceipiIngredientForm(request.POST or None)
-    qs = obj.receipiingridient_set.all()
+    qs = obj.receipiingredient_set.all()
     ReceipiIngredientFormset = modelformset_factory(ReceipiIngredient,form=ReceipiIngredientForm, extra=0)
     formset = ReceipiIngredientFormset(request.POST or None , queryset=qs)
     context = {
         'form' : form,
-        'form_2' : form_2 , 
+        'formset' : formset ,
         'object': obj
     }
     
-    if all([form.is_valid(),form_2.is_valid()]):
+    if all([form.is_valid(),formset.is_valid()]):
         parent = form.save(commit=False)
         parent.save()
-        child = form_2.save(commit=False)
-        child.receipe = parent
-        child.save()
-        context['message'] = 'data updated.'
-        return redirect('receipe:list')
+        # child = form_2.save(commit=False)
+        # child.receipe = parent
+        # child.save()
+        # context['message'] = 'data updated.'
+        # return redirect('receipe:list')
+        for form in formset:
+            child = form.save(commit=False)
+            if child.receipi is None:
+                child.receipi = parent
+            child.save()
+        return redirect("receipe:list")
     return render(
         request,
         'receipi/create-update.html',
