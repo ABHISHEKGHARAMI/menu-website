@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{ object.name }}
+{% endblock title %}
+
+
+
+{% block content %}
+
+ <h1>{{ object.name }}<small><a href="{{ object.get_edit_url }}">Edit</a></small></h1>
+ <p>by -  {{ object.user.username }}</p>
+ <p>{{ object.description }}</p>
+ <p>{{ object.directions }}</p>
+
+ {% for obj in object.receipiingredient_set.all %}
+     <h1>{{ obj.name }}</h1>
+     <p>{{ obj.as_imperial }}</p>
+     <p>{{ obj.as_mks }}</p>
+     <p>{{ obj.to_ounces }}</p>
+ {% endfor %}
+
+{% endblock content %}

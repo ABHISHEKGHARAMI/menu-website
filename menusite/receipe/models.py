@@ -22,6 +22,11 @@ class Receipi(models.Model):
         return reverse('receipe:detail',kwargs={'id':self.id})
     
     
+    # edit url
+    def get_edit_url(self):
+        return reverse('receipe:edit',kwargs={'id':self.id})
+    
+    
     
 # ingredients for receipi 
 class ReceipiIngredient(models.Model):
