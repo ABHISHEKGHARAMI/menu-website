@@ -11,6 +11,9 @@
       .ingredient-form{
          border-bottom : 1px solid black;
       }
+      .hidden{
+         display : none;
+      }
    </style>
 
   
@@ -32,14 +35,33 @@
          {% if formset %}
             <h3>Ingredients</h3>
             {{formset.management_form}}
-            {% for form in formset %}
-                <div class="ingredient-form">
-                    {{ form.as_p }}
-                </div>
-            {% endfor %}
+            <div id="ingredient-form-list">
+               {% for form in formset %}
+                  <div class="ingredient-form">
+                     {{ form.as_p }}
+                  </div>
+               {% endfor %}
+            </div>
+            <div id="empty-form" class="hidden">{{ formset.empty_page }}</div>
+            <button id="add-more" type="button">Add more ..</button>
          {% endif %}
          <button style="margin-top:50px" type="submit">Save</button>
       </form>
    </div>
+
+   <script>
+      
+      const addMoreBtn = document.getElementById('add-more').addEventListener('click',add_new_form)
+         function add_new_form(event){
+            if(event){
+               event.preventDefault();
+            }
+            const formCopyTarget = document.getElementById('ingredient-form-list');
+            const emptyFormElement = document.getElementById('empty-form').cloneNode(true);
+            emptyFormElement.setAttribute('class','ingredient-form');
+            formCopyTarget.append(emptyFormElement);
+         }
+      
+   </script>
 
 {% endblock content %}
