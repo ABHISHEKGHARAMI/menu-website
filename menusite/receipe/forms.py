@@ -4,10 +4,10 @@ from .models import Receipi, ReceipiIngredient
 
 # generate the form for the create view
 class ReceipiForm(forms.ModelForm):
-    # error_css_class = 'error-class'
-    # required_css_class = 'required-class'
-    # name = forms.CharField(widget=forms.TextInput(attrs={"class":'flow-control',
-    #                                                      "placeholder":'receipe name'}))
+    error_css_class = 'error-class'
+    required_css_class = 'required-class'
+    name = forms.CharField(widget=forms.TextInput(attrs={"class":'flow-control',
+                                                         "placeholder":'receipe name'}))
     class Meta:
         model = Receipi
         fields = ['name', 'description', 'directions']

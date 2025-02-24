@@ -76,7 +76,7 @@ def receipi_update_view(request,id=None):
             child = form.save(commit=False)
             if child.receipi is None:
                 child.receipi = parent
-            child.save()
+                child.save()
         return redirect("receipe:list")
     return render(
         request,
