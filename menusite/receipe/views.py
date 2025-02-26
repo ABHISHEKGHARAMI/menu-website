@@ -76,10 +76,11 @@ def receipi_update_view(request,id=None):
             child = form.save(commit=False)
             child.receipi = parent
             child.save()
-        return redirect("receipe:list")
+        context['message'] = 'data saved'
+        # return redirect("receipe:list")
     return render(
         request,
         'receipi/create-update.html',
-        context = context
+        context
     )
         
