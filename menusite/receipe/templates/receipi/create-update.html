@@ -42,7 +42,7 @@
                   </div>
                {% endfor %}
             </div>
-            <div id="empty-form" class="hidden">{{ formset.empty_page }}</div>
+            <div id="empty-form" class="">{{ formset.empty_form.as_p|safe }}</div>
             <button id="add-more" type="button">Add more ..</button>
          {% endif %}
          <button style="margin-top:50px" type="submit">Save</button>
@@ -51,16 +51,22 @@
 
    <script>
       
-      const addMoreBtn = document.getElementById('add-more').addEventListener('click',add_new_form)
-         function add_new_form(event){
-            if(event){
-               event.preventDefault();
-            }
-            const formCopyTarget = document.getElementById('ingredient-form-list');
-            const emptyFormElement = document.getElementById('empty-form').cloneNode(true);
-            emptyFormElement.setAttribute('class','ingredient-form');
-            formCopyTarget.append(emptyFormElement);
+      const addMoreBtn = document.getElementById('add-more');
+
+      addMoreBtn.addEventListener('click', add_new_form);
+
+      function add_new_form(event){
+         if(event){
+            event.preventDefault();
          }
+         const formCopyTarget = document.getElementById('ingredient-form-list');
+         const emptyFormElement = document.getElementById('empty-form').cloneNode(true);
+         // set the class
+         emptyFormElement.setAttribute('class','ingredient-form');
+         formCopyTarget.append(emptyFormElement);
+      }
+
+         
       
    </script>
 

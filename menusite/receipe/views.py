@@ -74,9 +74,8 @@ def receipi_update_view(request,id=None):
         # return redirect('receipe:list')
         for form in formset:
             child = form.save(commit=False)
-            if child.receipi is None:
-                child.receipi = parent
-                child.save()
+            child.receipi = parent
+            child.save()
         return redirect("receipe:list")
     return render(
         request,
