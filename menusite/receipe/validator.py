@@ -11,7 +11,7 @@ def validate_unit_measure(value):
     #     raise ValidationError(f"{value} does not support the unit.")
     ureg = pint.UnitRegistry()
     try:
-        single_unit = ureg[value]
+        single_unit = ureg[value.lower()]
     except UndefinedUnitError as e:
         raise ValidationError(e)
     except:
