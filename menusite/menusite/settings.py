@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'accounts.apps.AccountsConfig',
-    'receipe.apps.ReceipeConfig',
+    # 'receipe.apps.ReceipeConfig',
 ]
 
 MIDDLEWARE = [
