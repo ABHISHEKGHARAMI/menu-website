@@ -17,3 +17,15 @@ class UserTestCase(TestCase):
     def test_user_pw(self):
         check = self.user_a.check_password(raw_password='Abhi1998@')
         self.assertTrue(check)
+        
+        
+# recipe test case
+class RecipeTestCase(TestCase):
+    # set up function
+    def setUp(self):
+        self.user_a = User.objects.create_user(username='Abhi',password='Suraj1998@')
+        
+    # test user count
+    def test_user_count(self):
+        qs = User.objects.all()
+        self.assertEqual(qs.count(),1)
