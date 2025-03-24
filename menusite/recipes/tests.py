@@ -43,6 +43,13 @@ class RecipeTestCase(TestCase):
             quantity = '1/2',
             unit = 'kg'
         )
+        # creating the another recipe ingredients
+        self.recipe_ingredient_b = RecipeIngredient.objects.create(
+            recipe = self.recipe_a,
+            name = 'spinach',
+            quantity = 'abukruh',
+            unit = 'ounce'
+        )
         
     # test user count
     def test_user_count(self):
@@ -65,34 +72,34 @@ class RecipeTestCase(TestCase):
     def test_user_recipe_ingredient_reverse_count(self):
         recipe = self.recipe_a
         qs = recipe.recipeingredient_set.all()
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
         
     # test recipe ingredient count for forward
     def test_user_recipe_ingredient_forward_count(self):
         recipe = self.recipe_a
         qs = RecipeIngredient.objects.filter(recipe=recipe)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # test recipe ingredient for the specific user
     def test_specific_user_to_level_recipe(self):
         user = self.user_a
         qs = RecipeIngredient.objects.filter(recipe__user = user)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # test recipe ingredient for the specific user reverse relation
     def test_specific_user_to_level_recipe_reverse(self):
         user = self.user_a
         recipeingredient_id = list(user.recipe_set.all().values_list('recipeingredient', flat=True))
         qs = RecipeIngredient.objects.filter(id__in=recipeingredient_id)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
     
     # test recipe two level relation for the user
     def test_two_level_relation_via_recipe(self):
         user = self.user_a
         ids = user.recipe_set.all().values_list("id",flat=True)
         qs = RecipeIngredient.objects.filter(recipe__id__in=ids)
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # test the unit for the validator
     def test_unit_validation(self):
@@ -117,5 +124,10 @@ class RecipeTestCase(TestCase):
                 unit=invalid_unit
             )
             ingredient.full_clean()
+            
+    # test for the float quantity
+    def test_quantity_as_float(self):
+        self.assertIsNotNone(self.recipe_ingredient_a.quantity_as_float)
+        self.assertIsNone(self.recipe_ingredient_b.quantity_as_float)
         
     
