@@ -30,6 +30,18 @@ class RecipeTestCase(TestCase):
             user = self.user_a,
             name = 'Grilled chicken'
         )
+        # creating another recipe for the same user
+        self.recipe_b = Recipe.objects.create(
+            user = self.user_a,
+            name = 'Grilled chicken tacos'
+        )
+        # creating the recipe ingredients
+        self.recipe_ingredient_a = RecipeIngredient.objects.create(
+            recipe = self.recipe_a,
+            name = 'chicken',
+            quantity = '1/2',
+            unit = 'kg'
+        )
         
     # test user count
     def test_user_count(self):
@@ -40,12 +52,25 @@ class RecipeTestCase(TestCase):
     def test_user_recipe_reverse_count(self):
         user = self.user_a
         qs = user.recipe_set.all()
-        self.assertEqual(qs.count(),1)
+        self.assertEqual(qs.count(),2)
         
     # test user forward recipe count
     def test_user_recipe_forward_count(self):
         user = self.user_a
         qs = Recipe.objects.filter(user=user)
-        self.assertTrue(qs.count(),1)
+        self.assertTrue(qs.count(),2)
+        
+    # test recipe ingredient count for reverse 
+    def test_user_recipe_ingredient_reverse_count(self):
+        recipe = self.recipe_a
+        qs = recipe.recipeingredient_set.all()
+        self.assertEqual(qs.count(),1)
+        
+        
+    # test recipe ingredient count for forward
+    def test_user_recipe_ingredient_forward_count(self):
+        recipe = self.recipe_a
+        qs = RecipeIngredient.objects.filter(recipe=recipe)
+        self.assertEqual(qs.count(),1)
         
     
