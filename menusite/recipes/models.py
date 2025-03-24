@@ -20,6 +20,7 @@ class RecipeIngredient(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True,null=True)
     quantity = models.CharField(max_length=50)
+    quantity_as_float = models.FloatField(blank=True,null=True)
     unit = models.CharField(max_length=50,validators=[validate_unit_of_measurement])
     directions = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
