@@ -20,7 +20,7 @@ class Recipe(models.Model):
     
     # absolute url
     def get_absolute_url(self):
-        return reverse('recipes:detail',kwargs={id : self.id})
+        return reverse('recipes:detail',kwargs={"id" : self.id})
     
 # model for the recipe ingredient for the recipe 
 class RecipeIngredient(models.Model):
