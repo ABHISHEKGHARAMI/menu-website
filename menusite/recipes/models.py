@@ -1,8 +1,10 @@
 from django.db import models
 import pint
 from django.conf import settings
+from django.urls import reverse
 from .validators import validate_unit_of_measurement
 from .utils import number_str_to_float
+
 
 # Create your models here.
 
@@ -18,7 +20,7 @@ class Recipe(models.Model):
     
     # absolute url
     def get_absolute_url(self):
-        return '/pantry/recipes'
+        return reverse('recipes:detail',kwargs={id : self.id})
     
 # model for the recipe ingredient for the recipe 
 class RecipeIngredient(models.Model):

@@ -48,7 +48,7 @@ def recipe_create_view(request):
         return redirect(obj.get_absolute_url())
     return render(
         request,
-        'recipes/create.html',
+        'recipes/create-update.html',
         context=context
     )
 
@@ -56,8 +56,8 @@ def recipe_create_view(request):
 # update view
 @login_required
 def recipe_update_view(request,id=None):
-    form = RecipeForm(request.POST or None)
     obj = get_object_or_404(Recipe,id=id,user=request.user)
+    form = RecipeForm(request.POST or None, instance=obj)
     context = {
         'form' : form,
         'obj'  : obj
@@ -69,7 +69,7 @@ def recipe_update_view(request,id=None):
         context['message'] = 'data saved...'
     return render(
         request,
-        'recipes/create.html',
+        'recipes/create-update.html',
         context=context
     )
     
