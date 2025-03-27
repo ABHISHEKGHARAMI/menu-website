@@ -16,6 +16,10 @@ class Recipe(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
     
+    # absolute url
+    def get_absolute_url(self):
+        return '/pantry/recipes'
+    
 # model for the recipe ingredient for the recipe 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe,on_delete=models.CASCADE)
@@ -27,6 +31,10 @@ class RecipeIngredient(models.Model):
     directions = models.TextField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    
+    
+    def get_absolute_url(self):
+        return self.recipe.get_absolute_url()
     
     
     # here we create utility conversion for unit using the pint
