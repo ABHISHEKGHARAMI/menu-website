@@ -22,6 +22,14 @@ class Recipe(models.Model):
     def get_absolute_url(self):
         return reverse('recipes:detail',kwargs={"id" : self.id})
     
+    # edit url
+    def get_edit_url(self):
+        return reverse('recipes:update',kwargs={"id" : self.id})
+    
+    # get ingredients
+    def get_ingredients(self):
+        return self.recipeingredient_set.all()
+    
 # model for the recipe ingredient for the recipe 
 class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe,on_delete=models.CASCADE)

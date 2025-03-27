@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Recipe
+{% endblock title %}
+
+
+{% block content %}
+  {% comment %} check for update or not {% endcomment %}
+  {% if message %}
+    {{message}}
+  {% else %}
+    <div style="margin-top:30px">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button style="margin-top:10px" type="submit">Create Recipe</button>
+        </form>
+    </div>
+  {% endif %}
+{% endblock content %}
