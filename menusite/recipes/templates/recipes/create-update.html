@@ -16,38 +16,11 @@ Create Recipe
    }
  </style>
   {% comment %} check for update or not {% endcomment %}
-  {% if message %}
-    {{message}}
-  {% else %}
+
     <div style="margin-top:30px">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-               <div class ='{% if field.field.required %}{{ form.required_css_class }}{% endif %}'>
-                   {{ field.errors }}
-                    {{ field.label_tag}} {{ field }}
-                    {% if field.help_text %}
-                      <p class="help">{{ form.help_text | safe }}</p>
-                    {% endif %}
-               </div>
-            {% endfor %}
-            {% if formset %}
-               <h3>Ingredients</h3>
-               {{ formset.management_form }}
-               <div id="ingredient-form-List">
-                    {% for form in formset %}
-                      <div class="ingredients-form">
-                          {{ form.as_p }}
-                      </div>
-                    {% endfor %}
-              </div>
-               <div id='empty-form' class='hidden'>{{ formset.empty_form.as_p }}</div>
-               <button id='add-more' type='button'>Add more</button>
-            {% endif %}
-            <button style="margin-top:10px" type="submit">Save</button>
-        </form>
+        {% include "recipes/partials/forms.html" %}
     </div>
-  {% endif %}
+ 
 
   <script>
     
