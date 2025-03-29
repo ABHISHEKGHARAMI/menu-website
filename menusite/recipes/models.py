@@ -26,6 +26,10 @@ class Recipe(models.Model):
     def get_edit_url(self):
         return reverse('recipes:update',kwargs={"id" : self.id})
     
+    # edit hx url
+    def get_hx_url(self):
+        return reverse('recipes:hx-detail', kwargs={"id": self.id})
+    
     # get ingredients
     def get_ingredients(self):
         return self.recipeingredient_set.all()
